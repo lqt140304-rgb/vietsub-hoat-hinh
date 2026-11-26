@@ -4,9 +4,9 @@ Khi gửi file `transcript_clean.txt` cho Antigravity (hoặc bất kỳ AI nào
 
 > Đọc file `transcript_clean.txt` đính kèm và viết kịch bản review/tóm tắt tập phim theo đúng định dạng `script.json`:
 > 1. **Mở đầu (Hook 3–5 giây):** Chọn chi tiết gây tò mò, vô lý hoặc hài hước nhất tập. `type: "hook"`.
-> 2. **Thân bài (4–8 đoạn):** Tóm tắt mạch truyện chính, giữ giọng kể tự nhiên, hài hước kiểu TikTok/Shorts tiếng Việt, dịch thoát ý các câu đùa/slang.
+> 2. **Thân bài (4–8 đoạn / mỗi phần):** Tóm tắt mạch truyện chính bằng **ngôn ngữ trẻ trung, hiện đại, tự nhiên kiểu Gen Z / TikTok / YouTube Shorts** (tránh văn phong dịch sát chữ hay cứng nhắc kiểu sách giáo khoa). **Lồng ghép khéo 2–3 câu đùa / meme mạng xã hội Việt Nam** đúng tình huống (ví dụ: *bật max nhân phẩm, chiến thần lý sự, work from home, bất ngờ chưa bà già, vũ trụ gửi tín hiệu, nghiệp quật tốc độ bàn thờ, đứng hình mất 5 giây, hết cứu, quay xe...*) sao cho tự nhiên, không gượng ép. Dịch thoát ý các câu đùa/slang tiếng Anh sang cách nói dí dỏm của người Việt.
 > 3. **Điểm nhấn:** Có thể giữ lại 1–2 đoạn thoại/tiếng cười gốc (`"keep_original_audio": true, "narration": ""`) ở các cảnh punchline để tránh cảm giác đọc AI đều đều.
-> 4. **Thời lượng:** Mỗi đoạn từ 3–8 giây, tổng video 45–90 giây.
+> 4. **Thời lượng & chia phần:** Mỗi đoạn từ 3–8 giây. Nếu làm video dài ~3 phút chia 2 phần, gắn `"part": 1` và `"part": 2` (mỗi phần đều có `hook` mở đầu riêng) để render bằng `--split-parts`.
 
 ## Schema JSON chuẩn
 
