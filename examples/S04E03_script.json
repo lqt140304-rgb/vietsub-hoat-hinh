@@ -1,0 +1,80 @@
+{
+  "title": "The Simpsons S04E03 - Tự Lập Giáo Phái Riêng Và Cái Kết",
+  "aspect_ratio": "9:16",
+  "voice": "vi-VN-NamMinhNeural",
+  "voice_rate": "+12%",
+  "segments": [
+    {
+      "id": 1,
+      "type": "hook",
+      "start": "00:17:35.000",
+      "end": "00:17:40.000",
+      "narration": "Chỉ vì lười dậy sớm ngày Chủ Nhật, ông bố này tự lập giáo phái riêng ở nhà ngủ nướng và cái kết cháy sạch cả căn nhà!",
+      "keep_original_audio": false
+    },
+    {
+      "id": 2,
+      "type": "body",
+      "start": "00:01:45.000",
+      "end": "00:01:51.000",
+      "narration": "Sáng Chủ Nhật trời lạnh âm mười một độ, Homer nhất quyết không chịu đi lễ cùng vợ con vì quá lười.",
+      "keep_original_audio": false
+    },
+    {
+      "id": 3,
+      "type": "body",
+      "start": "00:03:54.000",
+      "end": "00:04:04.000",
+      "narration": "Trong khi cả nhà ngồi run cầm cập ở nhà thờ bị đóng băng cửa, thì ở nhà Homer nhảy múa, tự chế bánh kẹp siêu béo.",
+      "keep_original_audio": false
+    },
+    {
+      "id": 4,
+      "type": "body",
+      "start": "00:07:17.000",
+      "end": "00:07:24.000",
+      "narration": "Không chỉ thắng giải thưởng trên đài phát thanh, ông còn nhặt được đồng xu may mắn và tuyên bố đây là ngày tuyệt vời nhất đời mình.",
+      "keep_original_audio": false
+    },
+    {
+      "id": 5,
+      "type": "body",
+      "start": "00:09:29.000",
+      "end": "00:09:38.000",
+      "narration": "Đêm đó, đấng tối cao bất ngờ hiện về trong giấc mơ hỏi tội, nhưng Homer lại lý sự quá hợp lý khiến Ngài cũng gật gù đồng ý cho tự tu tại gia.",
+      "keep_original_audio": false
+    },
+    {
+      "id": 6,
+      "type": "body",
+      "start": "00:11:53.000",
+      "end": "00:12:03.000",
+      "narration": "Được nước làm tới, Homer tự bịa ra ngày lễ tôn giáo để nghỉ làm ở công ty, rồi quay sang chê bai tất cả mọi người xung quanh là ngu ngốc.",
+      "keep_original_audio": false
+    },
+    {
+      "id": 7,
+      "type": "body",
+      "start": "00:16:43.000",
+      "end": "00:16:49.500",
+      "narration": "Chưa kịp tự đắc được bao lâu, Homer ngủ quên khi đang hút xì gà làm bén lửa, thiêu rụi cả căn nhà trong tích tắc.",
+      "keep_original_audio": false
+    },
+    {
+      "id": 8,
+      "type": "punchline",
+      "start": "00:19:19.000",
+      "end": "00:19:29.500",
+      "narration": "Trớ trêu thay, người lao vào biển lửa cứu sống Homer lại chính là ông hàng xóm Flanders mà anh ta ghét cay ghét đắng.",
+      "keep_original_audio": false
+    },
+    {
+      "id": 9,
+      "type": "ending",
+      "start": "00:21:54.000",
+      "end": "00:22:02.000",
+      "narration": "Hết tập, đấng tối cao vẫn an ủi Homer rằng chín trên mười giáo phái mới đều thất bại trong năm đầu tiên, và chuẩn bị tiết lộ ý nghĩa cuộc sống thì... hết giờ!",
+      "keep_original_audio": false
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Demo Recap - Cartoon Hook Style",
+  "aspect_ratio": "9:16",
+  "voice": "vi-VN-NamMinhNeural",
+  "voice_rate": "+10%",
+  "segments": [
+    {
+      "id": 1,
+      "type": "hook",
+      "start": "00:00:01.000",
+      "end": "00:00:04.500",
+      "narration": "Chỉ vì một chiếc bánh kẹp, cả thành phố đã rơi vào hỗn loạn!",
+      "keep_original_audio": false
+    },
+    {
+      "id": 2,
+      "type": "body",
+      "start": "00:00:05.000",
+      "end": "00:00:08.500",
+      "narration": "Mọi chuyện bắt đầu khi ông bố quyết định tự tay mở tiệm ăn trước nhà.",
+      "keep_original_audio": false
+    }
+  ]
+}
