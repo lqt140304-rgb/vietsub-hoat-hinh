@@ -38,14 +38,24 @@ async def _synthesize_async(text: str, output_path: Path, voice: str, rate: str)
     await communicate.save(str(output_path))
 
 
+def _synthesize_gtts(text: str, output_path: Path) -> Tuple[Path, float]:
+    """Fallback Vietnamese TTS using gTTS when edge-tts is blocked or clock-skewed."""
+    from gtts import gTTS  # type: ignore
+
+    tts = gTTS(text=text, lang="vi", slow=False)
+    tts.save(str(output_path))
+    duration = get_media_duration(output_path)
+    return output_path, duration
+
+
 def synthesize_speech(
     text: str,
     output_path: Path,
     voice: str = DEFAULT_VOICE,
     rate: str = DEFAULT_RATE,
-    max_retries: int = 4,
+    max_retries: int = 2,
 ) -> Tuple[Path, float]:
-    """Synthesize Vietnamese speech to an MP3 file with retries and return (path, duration_seconds)."""
+    """Synthesize Vietnamese speech to an MP3 file with retries and gTTS fallback."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     last_exc: Exception | None = None
 
@@ -66,4 +76,7 @@ def synthesize_speech(
                 )
                 time.sleep(wait_sec)
 
-    raise RuntimeError(f"edge-tts failed after {max_retries} attempts: {last_exc}") from last_exc
+    print(
+        f"[WARN] edge-tts unavailable ({last_exc}). Falling back to gTTS..."
+    )
+    return _synthesize_gtts(text, output_path)

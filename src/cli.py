@@ -147,7 +147,16 @@ def cmd_render(args: argparse.Namespace) -> int:
 
             tts_audio = None
             tts_duration = None
-            if narration:
+            custom_audio = seg.get("audio")
+            if custom_audio:
+                custom_path = Path(custom_audio)
+                if not custom_path.exists():
+                    print(f"[ERROR] Segment {i} audio file not found: {custom_path}")
+                    return 1
+                tts_audio = custom_path
+                tts_duration = get_media_duration(tts_audio)
+                print(f"[*] Segment {i}/{len(data['segments'])}: Using custom audio {custom_path.name}...")
+            elif narration:
                 tts_audio = tmp_dir / f"seg_{i:03d}.mp3"
                 print(f"[*] Segment {i}/{len(data['segments'])}: Synthesizing TTS...")
                 _, tts_duration = synthesize_speech(
