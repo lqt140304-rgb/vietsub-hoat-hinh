@@ -42,6 +42,21 @@ Pipeline sẽ tự động:
 - Đóng khung dọc `9:16` (nền mờ + khung hoạt hình 16:9 sắc nét ở giữa, không mất nhân vật hai bên) hoặc giữ `16:9`.
 - Burn-in phụ đề `.ass` nổi bật kiểu TikTok / YouTube Shorts.
 
+## Giọng VieNeu chạy local (miễn phí, không cần API key)
+
+Dùng các giọng có sẵn của [VieNeu-TTS](https://pypi.org/project/vieneu/) (ví dụ `Ngọc Huyền`, `Hải Đăng`, `Trúc Ly`, `Mai Anh`...):
+```bash
+pip install vieneu soundfile   # lần chạy đầu sẽ tự tải model từ HuggingFace
+
+python3 -m src.cli render \
+  --video path/to/episode.mp4 \
+  --script path/to/script.json \
+  --output output/recap_9x16.mp4 \
+  --tts-provider vieneu \
+  --voice "Ngọc Huyền"
+```
+*(Hoặc thêm `"tts_provider": "vieneu"` và `"voice": "Ngọc Huyền"` vào `script.json`. Xem giấy phép của từng giọng trên trang model trước khi dùng thương mại.)*
+
 ## Clone giọng của bạn với ElevenLabs
 
 ### 1. (Khuyên dùng) Làm sạch & chuẩn hóa file thu âm mẫu

@@ -435,10 +435,10 @@ def cmd_render(args: argparse.Namespace) -> int:
 def _add_tts_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--tts-provider",
-        choices=["edge", "elevenlabs"],
+        choices=["edge", "elevenlabs", "vieneu"],
         help="TTS provider (default: 'edge' or value in script.json)",
     )
-    parser.add_argument("--voice", help="Voice name (edge-tts) or voice_id (ElevenLabs)")
+    parser.add_argument("--voice", help="Voice name (edge-tts / VieNeu, e.g. \"Ngọc Huyền\") or voice_id (ElevenLabs)")
     parser.add_argument(
         "--elevenlabs-key",
         help="ElevenLabs API key (or set ELEVENLABS_API_KEY env var)",

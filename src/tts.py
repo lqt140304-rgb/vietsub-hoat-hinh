@@ -1,4 +1,4 @@
-"""Vietnamese Text-to-Speech synthesis using edge-tts (No-API) or ElevenLabs."""
+"""Vietnamese Text-to-Speech synthesis using edge-tts (No-API), ElevenLabs or VieNeu (local)."""
 
 from __future__ import annotations
 
@@ -19,6 +19,8 @@ DEFAULT_VOICE = "vi-VN-NamMinhNeural"  # Alternatives: vi-VN-HoaiMyNeural
 DEFAULT_RATE = "+10%"
 DEFAULT_ELEVENLABS_MODEL = "eleven_multilingual_v2"
 ELEVENLABS_API_BASE = "https://api.elevenlabs.io/v1"
+DEFAULT_VIENEU_VOICE = "Ngọc Huyền"
+_VIENEU_ENGINE: Any = None
 
 
 def get_media_duration(media_path: Path) -> float:
@@ -181,6 +183,52 @@ def clone_voice_elevenlabs(
     return str(voice_id)
 
 
+def _get_vieneu_engine() -> Any:
+    """Load the VieNeu engine once (the model download/init is slow)."""
+    global _VIENEU_ENGINE
+    if _VIENEU_ENGINE is None:
+        try:
+            from vieneu import Vieneu  # type: ignore
+        except ImportError as exc:
+            raise RuntimeError(
+                "VieNeu is not installed. Run: pip install vieneu soundfile"
+            ) from exc
+        _VIENEU_ENGINE = Vieneu()
+    return _VIENEU_ENGINE
+
+
+def synthesize_vieneu(
+    text: str,
+    output_path: Path,
+    voice: str = DEFAULT_VIENEU_VOICE,
+) -> Tuple[Path, float]:
+    """Synthesize speech locally with VieNeu-TTS (free, no API key) and save as MP3."""
+    import numpy as np  # type: ignore
+    import soundfile as sf  # type: ignore
+
+    if not voice or voice.startswith("vi-VN-"):
+        voice = DEFAULT_VIENEU_VOICE
+
+    engine = _get_vieneu_engine()
+    audio = np.asarray(engine.infer(text, voice=voice)).reshape(-1)
+    if audio.size == 0:
+        raise RuntimeError("VieNeu produced an empty audio result.")
+    sample_rate = int(getattr(engine, "sample_rate", 48000))
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    wav_path = output_path.with_suffix(".vieneu.wav")
+    sf.write(str(wav_path), audio, sample_rate)
+    try:
+        subprocess.run(
+            ["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", "-i", str(wav_path),
+             "-ac", "1", "-b:a", "128k", str(output_path)],
+            check=True,
+        )
+    finally:
+        wav_path.unlink(missing_ok=True)
+    return output_path, get_media_duration(output_path)
+
+
 def synthesize_speech(
     text: str,
     output_path: Path,
@@ -193,6 +241,9 @@ def synthesize_speech(
     voice_settings: Optional[Dict[str, Any]] = None,
 ) -> Tuple[Path, float]:
     """Synthesize Vietnamese speech to an MP3 file using edge-tts (default) or ElevenLabs."""
+    if provider.lower() == "vieneu":
+        return synthesize_vieneu(text=text, output_path=output_path, voice=voice)
+
     if provider.lower() == "elevenlabs":
         return synthesize_elevenlabs(
             text=text,

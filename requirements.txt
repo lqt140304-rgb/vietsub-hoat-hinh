@@ -2,3 +2,6 @@ edge-tts>=6.1.0
 gTTS>=2.5.0
 # Optional: uncomment if you need offline speech-to-text when .srt is missing
 # faster-whisper>=1.0.0
+# Optional: local VieNeu-TTS voices (e.g. "Ngọc Huyền"); first run downloads the model
+# vieneu>=3.8
+# soundfile
