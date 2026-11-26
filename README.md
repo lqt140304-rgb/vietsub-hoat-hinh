@@ -37,7 +37,40 @@ python3 -m src.cli render \
 ```
 
 Pipeline sẽ tự động:
-- Tạo giọng đọc tiếng Việt miễn phí bằng `edge-tts` (`vi-VN-NamMinhNeural` hoặc `vi-VN-HoaiMyNeural`).
+- Tạo giọng đọc tiếng Việt miễn phí bằng `edge-tts` (`vi-VN-NamMinhNeural` hoặc `vi-VN-HoaiMyNeural`) — hoặc dùng giọng clone **ElevenLabs** của riêng bạn.
 - Cắt các đoạn clip theo timestamp và tự co giãn tốc độ hình ảnh khớp với giọng đọc.
 - Đóng khung dọc `9:16` (nền mờ + khung hoạt hình 16:9 sắc nét ở giữa, không mất nhân vật hai bên) hoặc giữ `16:9`.
 - Burn-in phụ đề `.ass` nổi bật kiểu TikTok / YouTube Shorts.
+
+## Clone giọng của bạn với ElevenLabs
+
+### 1. (Khuyên dùng) Làm sạch & chuẩn hóa file thu âm mẫu
+Nếu file ghi âm giọng của bạn còn nhiễu hoặc âm lượng chưa đều, chạy `prepare-voice` để lọc tạp âm, chuẩn hóa âm lượng và tách thành các đoạn sạch:
+```bash
+python3 -m src.cli prepare-voice \
+  --input path/to/my_voice.mp3 \
+  --out-dir dataset/my_voice
+```
+
+### 2. Upload mẫu giọng lên ElevenLabs để tạo `voice_id`
+Đặt biến môi trường `ELEVENLABS_API_KEY` (hoặc truyền `--elevenlabs-key`):
+```bash
+export ELEVENLABS_API_KEY="sk_..."
+
+python3 -m src.cli clone-voice \
+  --name "Giong Cua Toi" \
+  --files dataset/my_voice
+```
+Lệnh sẽ trả về `voice_id` (ví dụ: `abc123xyz`).
+
+### 3. Render video bằng giọng ElevenLabs của bạn
+```bash
+python3 -m src.cli render \
+  --video path/to/episode.mp4 \
+  --script path/to/script.json \
+  --output output/recap_9x16.mp4 \
+  --tts-provider elevenlabs \
+  --voice abc123xyz
+```
+*(Hoặc thêm `"tts_provider": "elevenlabs"` và `"voice": "abc123xyz"` trực tiếp vào `script.json`.)*
+
